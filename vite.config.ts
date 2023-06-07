@@ -27,7 +27,13 @@ export default defineConfig((config: ConfigEnv) => {
 
     console.log('development env', server);
   } else if (config.mode === 'production') {
-    console.log('production env');
+    
+    server = {
+      port: Number(envConfig.VITE_PORT),
+      host: envConfig.VITE_HOST,
+    }
+    
+    console.log('production env:', server);
   }
 
   return {

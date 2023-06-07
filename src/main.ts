@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
+import { ImgUtil } from './utils/imgUtil'
 
-console.log('env', import.meta.env.VITE_Username, import.meta.env.VITE_Age);
-
-createApp(App).mount('#app')
+ImgUtil.storageImgList();
+const app = createApp(App)
+app.config.globalProperties.getImg = ImgUtil.getImg.bind(ImgUtil);
+app.mount('#app')

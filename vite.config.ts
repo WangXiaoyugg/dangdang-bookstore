@@ -1,26 +1,26 @@
 
 import { CommonServerOptions, ConfigEnv, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import fs from 'fs';
+import dotenv from 'dotenv';
+import type { EnvConfig } from './src/declare/myenv';
 
-// https://vitejs.dev/config/
-// export default defineConfig({
-//   plugins: [vue()],
-// })
 
 export default defineConfig((config: ConfigEnv) => {
   const envFilename = '.env';
   const curEnvFilename = `${envFilename}.${config.mode}`;
-  console.log('curEnvFilename: ', curEnvFilename);
   let server: CommonServerOptions = {}; 
+  const envData = fs.readFileSync(curEnvFilename);
+  const envConfig = dotenv.parse<EnvConfig>(envData);
 
   if (config.mode === 'development') {
-   
+    
     server = {
-      port: 5005,
-      host: '10.8.5.211',
+      port: Number(envConfig.VITE_PORT),
+      host: envConfig.VITE_HOST,
       proxy: {
-        '/dang': {
-          target: 'http://10.8.5.211:5003/'
+        [envConfig.VITE_BASE_URL]: {
+          target: envConfig.VITE_PROXY_DOMAIN
         }
       }
     }

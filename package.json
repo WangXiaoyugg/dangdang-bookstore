@@ -14,6 +14,7 @@
     "vue": "^3.2.47"
   },
   "devDependencies": {
+    "@types/good-storage": "^1.1.0",
     "@types/node": "^20.2.5",
     "@vitejs/plugin-vue": "^4.1.0",
     "typescript": "^5.0.2",
